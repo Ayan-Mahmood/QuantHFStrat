@@ -6,24 +6,52 @@ This repository contains research for **FE571: Quantitative Hedge Fund Trading S
 
 ---
 
+## Folder Structure
+
+```
+QuantHFStrat/
+├── backtesting/
+│   ├── v1_Volatility_Dispersion_Baseline.ipynb
+│   ├── v2_Volatility_Dispersion_ML_Enhanced.ipynb
+│   └── v3_Improved_Basket_Pair_Trading_Strategy.ipynb
+├── pdfs/
+│   ├── Exec_Comparison_Summary.pdf
+│   └── ML_Enhanced_Strategy_Comparison.pdf
+├── reports/
+│   ├── Executive_Report_v1.md
+│   └── Repository_Structure_Report.md
+├── .gitignore
+├── LICENSE
+└── README.md
+```
+
+---
+
 ## File Inventory
 
-### Code Files (Jupyter Notebooks)
+### Backtesting Notebooks
 
 | File | Lines | Size | Purpose |
 |------|-------|------|---------|
-| `Volatility Dispersion - Statistical Basket Pairs Trading Strategy.ipynb` | 782 | 991 KB | **BASELINE** - Original implementation |
-| `Volatility_Dispersion_ML_Enhanced.ipynb` | 666 | 1.0 MB | **ENHANCED** - Adds ML layer to baseline |
-| `Improved_Basket_Pair_Trading_Strategy.ipynb` | 1,954 | 684 KB | **COMPREHENSIVE** - Most complete version |
+| `backtesting/v1_Volatility_Dispersion_Baseline.ipynb` | 782 | 991 KB | **BASELINE** - Original implementation |
+| `backtesting/v2_Volatility_Dispersion_ML_Enhanced.ipynb` | 666 | 1.0 MB | **ENHANCED** - Adds ML layer to baseline |
+| `backtesting/v3_Improved_Basket_Pair_Trading_Strategy.ipynb` | 1,954 | 684 KB | **COMPREHENSIVE** - Most complete version |
 
-### Documentation Files
+### PDF Reports
 
 | File | Size | Purpose |
 |------|------|---------|
-| `Exec Comparison Summary.pdf` | 1.8 MB | Performance comparison report |
-| `ML Enhanced Strategy Comparison.pdf` | 2.9 MB | ML enhancement analysis |
-| `README.md` | 95 bytes | Minimal project description |
-| `LICENSE` | - | MIT License (Ayan Mahmood) |
+| `pdfs/Exec_Comparison_Summary.pdf` | 1.8 MB | Performance comparison report |
+| `pdfs/ML_Enhanced_Strategy_Comparison.pdf` | 2.9 MB | ML enhancement analysis |
+
+### Documentation
+
+| File | Purpose |
+|------|---------|
+| `reports/Executive_Report_v1.md` | Executive summary of strategy performance |
+| `reports/Repository_Structure_Report.md` | This file - repo organization guide |
+| `README.md` | Project description |
+| `LICENSE` | MIT License (Ayan Mahmood) |
 
 ---
 
@@ -34,10 +62,10 @@ This repository contains research for **FE571: Quantitative Hedge Fund Trading S
 ```
 PROGRESSION:
 
-  [1] BASELINE                [2] ML-ENHANCED              [3] COMPREHENSIVE
-  (Original Strategy)    -->  (Adds ML Filter)    -->     (Full Analysis)
+  [v1] BASELINE              [v2] ML-ENHANCED             [v3] COMPREHENSIVE
+  (Original Strategy)   -->  (Adds ML Filter)    -->     (Full Analysis)
 
-  - Basic vol spread          - Random Forest              - Everything from 1 & 2
+  - Basic vol spread          - Random Forest              - Everything from v1 & v2
   - Fixed thresholds          - 40+ features               - Stationarity testing
   - Simple backtest           - Walk-forward validation    - Half-life analysis
   - Performance metrics       - VIX regime adaptation      - Performance attribution
@@ -47,7 +75,7 @@ PROGRESSION:
 
 ### Detailed Breakdown
 
-#### 1. `Volatility Dispersion - Statistical Basket Pairs Trading Strategy.ipynb`
+#### v1: `backtesting/v1_Volatility_Dispersion_Baseline.ipynb`
 **Role:** BASELINE / ORIGINAL
 
 This is the **foundational implementation** with:
@@ -64,7 +92,7 @@ This is the **foundational implementation** with:
 
 ---
 
-#### 2. `Volatility_Dispersion_ML_Enhanced.ipynb`
+#### v2: `backtesting/v2_Volatility_Dispersion_ML_Enhanced.ipynb`
 **Role:** EXPERIMENTAL ENHANCEMENT
 
 This notebook **builds on the baseline** by adding:
@@ -83,7 +111,7 @@ This notebook **builds on the baseline** by adding:
 
 ---
 
-#### 3. `Improved_Basket_Pair_Trading_Strategy.ipynb`
+#### v3: `backtesting/v3_Improved_Basket_Pair_Trading_Strategy.ipynb`
 **Role:** COMPREHENSIVE / FINAL VERSION
 
 This is the **most complete notebook** combining everything:
@@ -97,7 +125,7 @@ This is the **most complete notebook** combining everything:
   - Detailed performance attribution by regime
   - Basic vs Enhanced strategy comparison charts
 
-**This appears to be the "final deliverable"** for the course project.
+**This is the final deliverable** for the course project.
 
 ---
 
@@ -107,8 +135,8 @@ This is the **most complete notebook** combining everything:
 
 **Overlap exists because each notebook represents an iteration:**
 
-| Component | Baseline | ML-Enhanced | Improved |
-|-----------|----------|-------------|----------|
+| Component | v1 Baseline | v2 ML-Enhanced | v3 Improved |
+|-----------|-------------|----------------|-------------|
 | Basket definitions | Yes | Yes | Yes |
 | `basket_index()` function | Yes | Yes | Yes |
 | Basic backtest function | Yes | Yes | Yes |
@@ -122,38 +150,14 @@ This is the **most complete notebook** combining everything:
 
 ---
 
-## Recommended Organization
-
-### Current State: Messy but Functional
-
-The repo has **evolutionary code** where each notebook builds on the previous. This is typical for research projects but creates redundancy.
-
-### If Cleaning Up:
-
-**Option A: Keep All Three** (Current)
-- Useful for showing progression of ideas
-- Good for academic submission showing iterative improvement
-
-**Option B: Consolidate to Two**
-- Keep `Volatility Dispersion - Statistical Basket Pairs Trading Strategy.ipynb` as baseline reference
-- Keep `Improved_Basket_Pair_Trading_Strategy.ipynb` as the final version
-- Archive `Volatility_Dispersion_ML_Enhanced.ipynb` (it's a stepping stone)
-
-**Option C: Single Notebook**
-- Merge everything into one comprehensive notebook
-- Use sections/flags to toggle ML on/off
-- Cleanest but loses development history
-
----
-
 ## PDF Reports
 
 | Report | Contents |
 |--------|----------|
-| `Exec Comparison Summary.pdf` | Side-by-side performance metrics, likely generated from baseline notebook |
-| `ML Enhanced Strategy Comparison.pdf` | Detailed ML analysis, feature importance, comparison charts |
+| `pdfs/Exec_Comparison_Summary.pdf` | Side-by-side performance metrics from baseline notebook |
+| `pdfs/ML_Enhanced_Strategy_Comparison.pdf` | Detailed ML analysis, feature importance, comparison charts |
 
-These appear to be **exported/generated reports** from the notebooks, not standalone documents.
+These are **exported/generated reports** from the notebooks.
 
 ---
 
@@ -161,11 +165,11 @@ These appear to be **exported/generated reports** from the notebooks, not standa
 
 | Question | Answer |
 |----------|--------|
-| Are there old vs new files? | Yes - three notebooks represent evolution |
+| Are there old vs new files? | Yes - three notebooks represent evolution (v1 → v2 → v3) |
 | Are they testing the same thing? | Yes - same strategy, progressive enhancements |
 | Is there duplicate code? | Yes - each notebook copies previous + adds more |
-| Which is the "final" version? | `Improved_Basket_Pair_Trading_Strategy.ipynb` |
-| Which is the cleanest baseline? | `Volatility Dispersion - Statistical Basket Pairs Trading Strategy.ipynb` |
+| Which is the "final" version? | `v3_Improved_Basket_Pair_Trading_Strategy.ipynb` |
+| Which is the cleanest baseline? | `v1_Volatility_Dispersion_Baseline.ipynb` |
 
 ---
 
