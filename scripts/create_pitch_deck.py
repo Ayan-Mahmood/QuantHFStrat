@@ -24,8 +24,10 @@ BLACK = RGBColor(0x00, 0x00, 0x00)
 FONT_PRIMARY = 'Helvetica Neue'
 FONT_FALLBACK = 'Arial'
 
-# Charts directory
-CHARTS_DIR = '/Users/akbarpathan/Desktop/Dev/QuantHFStrat/backtesting/charts/'
+# Charts directory (relative to script location for portability)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+CHARTS_DIR = os.path.join(PROJECT_ROOT, 'backtesting', 'charts')
 
 def set_slide_background(slide, color=WHITE):
     """Set slide background color"""
@@ -302,7 +304,7 @@ def add_chart_image_slide(prs, title, image_filename, one_liner=None, notes=None
 
         # Available space (slide is 10" x 5.625")
         max_width = 8.5  # inches (leave 0.75" margins)
-        max_height = 3.5  # inches (leave room for title + one-liner)
+        max_height = 4.0  # inches (increased from 3.5 for better chart visibility)
 
         # Calculate size to fit while preserving aspect ratio
         if aspect_ratio > (max_width / max_height):
@@ -336,9 +338,9 @@ def add_chart_image_slide(prs, title, image_filename, one_liner=None, notes=None
         p.font.color.rgb = STEVENS_GRAY
         p.alignment = PP_ALIGN.CENTER
 
-    # One-liner at bottom
+    # One-liner at bottom (moved down slightly to accommodate larger images)
     if one_liner:
-        liner_box = slide.shapes.add_textbox(Inches(0.5), Inches(5.0), Inches(9), Inches(0.5))
+        liner_box = slide.shapes.add_textbox(Inches(0.5), Inches(5.15), Inches(9), Inches(0.4))
         tf = liner_box.text_frame
         p = tf.paragraphs[0]
         p.text = one_liner
@@ -610,29 +612,55 @@ def main():
         ]
     )
 
-    # SLIDE 9: Cumulative Returns (ML vs Baseline vs SPY)
+    # SLIDE 9a: Cumulative Returns - Semiconductors & Energy (TOP PAIR)
     add_chart_image_slide(
         prs,
-        "Cumulative Returns: ML vs Baseline vs SPY",
-        "cumulative_returns.png",
-        "Three-way comparison shows ML improvement over baseline, both compared to SPY benchmark.",
+        "Cumulative Returns: Semiconductors & Energy",
+        "cumulative_returns_top.png",
+        "ML-Enhanced (red) reduces drawdowns vs Baseline (gray), both compared to SPY (black).",
         notes=[
-            "The gray line is our baseline strategy, red is ML-enhanced — you can see ML reduces some drawdowns",
-            "Semiconductors and Tech pairs show the most promise; Energy and Staples struggle to generate positive returns",
-            "Remember, the goal isn't to beat SPY — it's to provide uncorrelated returns for portfolio diversification"
+            "Semiconductors shows ML improvement from negative to positive Sharpe with reduced drawdown",
+            "Energy pair struggles but ML still provides some risk reduction",
+            "Both compared against SPY benchmark for context on market-neutral performance"
         ]
     )
 
-    # SLIDE 10: Drawdown
+    # SLIDE 9b: Cumulative Returns - Tech & Staples (BOTTOM PAIR)
     add_chart_image_slide(
         prs,
-        "Drawdown Profile",
-        "drawdown_chart.png",
-        "Significant drawdowns require strong conviction and proper position sizing.",
+        "Cumulative Returns: Tech & Staples Pairs",
+        "cumulative_returns_bottom.png",
+        "Tech vs Mega shows most promise; Staples vs Discretionary struggles with consistency.",
         notes=[
-            "50% drawdowns are painful — this is why we recommend only 5-10% portfolio allocation to this strategy",
-            "Notice how drawdowns cluster around market stress periods like 2020 — mean-reversion fails when correlations spike",
-            "The ML filter helps reduce some drawdowns but doesn't eliminate them — risk management is still essential"
+            "Tech vs Mega Cap pair has the best risk-adjusted profile of all four pairs",
+            "Staples vs Discretionary shows high volatility with persistently negative Sharpe",
+            "The goal is portfolio diversification, not beating SPY — low correlation is the value"
+        ]
+    )
+
+    # SLIDE 10a: Drawdown - Semiconductors & Energy (TOP PAIR)
+    add_chart_image_slide(
+        prs,
+        "Drawdown Profile: Semiconductors & Energy",
+        "drawdown_chart_top.png",
+        "50% max drawdowns require strong conviction and strict position sizing.",
+        notes=[
+            "Semiconductors and Energy both experienced 50% peak-to-trough drawdowns",
+            "These occurred during market stress periods when correlations spiked to 1",
+            "This is why we recommend only 5-10% portfolio allocation maximum"
+        ]
+    )
+
+    # SLIDE 10b: Drawdown - Tech & Staples (BOTTOM PAIR)
+    add_chart_image_slide(
+        prs,
+        "Drawdown Profile: Tech & Staples Pairs",
+        "drawdown_chart_bottom.png",
+        "Tech vs Mega has smallest drawdown (-26%); Staples pair is more volatile.",
+        notes=[
+            "Tech vs Mega pair shows best risk profile with only 26% max drawdown",
+            "Staples vs Discretionary experiences 43% drawdown despite negative returns",
+            "Drawdown clustering around 2020 COVID crash is notable across all pairs"
         ]
     )
 
@@ -814,8 +842,10 @@ def main():
         ]
     )
 
-    # Save
-    output_path = "/Users/akbarpathan/Desktop/Dev/QuantHFStrat/FE571_Final_Presentation_v2.pptx"
+    # Save to presentations/v3/
+    output_dir = os.path.join(PROJECT_ROOT, 'presentations', 'v3')
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, 'FE571_Final_Presentation_v3.pptx')
     prs.save(output_path)
     print(f"Presentation saved to: {output_path}")
     print(f"Total slides: {len(prs.slides)}")
